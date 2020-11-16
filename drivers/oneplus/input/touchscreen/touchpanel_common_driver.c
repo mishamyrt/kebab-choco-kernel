@@ -5576,6 +5576,8 @@ static int tfb_notifier_callback(struct notifier_block *self, unsigned long even
 				mutex_lock(&ts->mutex);
 				if (!ts->is_suspended && (ts->suspend_state == TP_SPEEDUP_RESUME_COMPLETE)) {
 					ts->ts_ops->mode_switch(ts->chip_data, MODE_REFRESH_SWITCH, 0);
+					if (ts->noise_level)
+						ts->ts_ops->mode_switch(ts->chip_data, MODE_GAME, true);
 				}
 				mutex_unlock(&ts->mutex);
 			}
@@ -5584,6 +5586,8 @@ static int tfb_notifier_callback(struct notifier_block *self, unsigned long even
 				mutex_lock(&ts->mutex);
 				if (!ts->is_suspended && (ts->suspend_state == TP_SPEEDUP_RESUME_COMPLETE)) {
 					ts->ts_ops->mode_switch(ts->chip_data, MODE_REFRESH_SWITCH, 1);
+					if (ts->noise_level)
+						ts->ts_ops->mode_switch(ts->chip_data, MODE_GAME, true);
 				}
 				mutex_unlock(&ts->mutex);
 			}
@@ -5592,6 +5596,8 @@ static int tfb_notifier_callback(struct notifier_block *self, unsigned long even
 				mutex_lock(&ts->mutex);
 				if (!ts->is_suspended && (ts->suspend_state == TP_SPEEDUP_RESUME_COMPLETE)) {
 					ts->ts_ops->mode_switch(ts->chip_data, MODE_REFRESH_SWITCH, 1);
+					if (ts->noise_level)
+						ts->ts_ops->mode_switch(ts->chip_data, MODE_GAME, true);
 				}
 				mutex_unlock(&ts->mutex);
 			}
