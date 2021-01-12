@@ -3,6 +3,38 @@
 #
 # This script must be *sourced* from a Bash in order to function.
 
+# Declare all side-effects variables
+_int_vars+=(
+    _int_functions
+	_out_dir
+	_release_dir
+	_flasher_dir
+	_zip_file
+	_arch
+    _kmake_flags
+)
+
+# Declare all side-effects functions
+_int_functions+=(
+	croot
+	log
+	success
+	clone_toolchain
+	kmake
+    kernel_build
+    dtb_build
+    regenerate_defconfig
+    pack
+    master_build
+    publish
+    unsetup
+    _generate_changelog
+    _generate_json
+    _configure
+    _local_version
+    _get_repo
+)
+
 # Internal variables
 _out_dir="$bootstrap_path/out"
 _release_dir="$bootstrap_path/release"
@@ -101,6 +133,24 @@ function publish() {
     surge --project "$_release_dir" \
           -d "$surge_url" \
           --token "$surge_token"
+}
+
+# Unsetup Choco environment
+function unsetup() {
+    # Restore PATH
+	export PATH="$_old_path"
+
+	# Unset functions
+	for func in "${_int_functions[@]}"; do
+		unset -f "$func" > /dev/null 2>&1
+	done
+
+	# Unset variables
+	for var in "${_int_vars[@]}"; do
+		unset -v "$var" > /dev/null 2>&1
+	done
+
+    echo -e "\e[32mEnvironment successfully unsetuped\e[0m"
 }
 
 # Export git history to changelog

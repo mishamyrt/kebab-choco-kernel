@@ -31,6 +31,10 @@ threads="$(nproc)"
 llvm_revision="r407598"
 
 # Internal part, don't edit. ↓
+
+# Save previous PATH for restoring it later
+_old_path="$PATH"
+
 # Paths
 _gcc32_dir="$toolchain_path/gcc32"
 _gcc64_dir="$toolchain_path/gcc64"
@@ -41,4 +45,19 @@ export LD_LIBRARY_PATH="$_llvm_dir/lib:$_llvm_dir/lib64:$LD_LIBRARY_PATH"
 
 bootstrap_path="$PWD"
 
+_int_vars+=(
+	bootstrap_path
+	fkm_name
+	trunk_name
+	threads
+	llvm_revision
+    _int_vars
+    _old_path
+    _gcc32_dir
+    _gcc64_dir
+    _llvm_dir
+)
+
 source helpers.bash
+
+success "Environment successfully setuped"
