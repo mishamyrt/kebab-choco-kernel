@@ -3,6 +3,8 @@
 #
 # This script must be *sourced* from a Bash in order to function.
 
+set -e
+
 # Declare all side effects variables
 _int_vars+=(
     _int_functions
