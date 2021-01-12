@@ -11,7 +11,7 @@ _zip_file="$_release_dir/${defconfig/_defconfig/}.zip"
 _arch="arm64"
 
 # Build flags
-kmake_flags=(
+_kmake_flags=(
 	-j"$threads"
 	ARCH="$_arch"
 	O="out"
@@ -50,7 +50,7 @@ function clone_toolchain() {
 
 # Main wrapper for all `make` functions
 function kmake() {
-    make "${kmake_flags[@]}" "$@"
+    make "${_kmake_flags[@]}" "$@"
 }
 
 # Build kernel image
