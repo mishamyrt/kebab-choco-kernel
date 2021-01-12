@@ -3,7 +3,7 @@
 #
 # This script must be *sourced* from a Bash in order to function.
 
-# Declare all side-effects variables
+# Declare all side effects variables
 _int_vars+=(
     _int_functions
 	_out_dir
@@ -36,9 +36,9 @@ _int_functions+=(
 )
 
 # Internal variables
-_out_dir="$bootstrap_path/out"
-_release_dir="$bootstrap_path/release"
-_flasher_dir="$bootstrap_path/flasher"
+_out_dir="$_bootstrap_path/out"
+_release_dir="$_bootstrap_path/release"
+_flasher_dir="$_bootstrap_path/flasher"
 _zip_file="$_release_dir/${defconfig/_defconfig/}.zip"
 _arch="arm64"
 
@@ -60,7 +60,7 @@ _kmake_flags=(
 
 # Go to kernel root directory
 function croot() {
-    cd $bootstrap_path
+    cd $_bootstrap_path
 }
 
 # Print information message to CLI
@@ -103,7 +103,7 @@ function dtb_build() {
 function regenerate_defconfig() {
     _configure
     cp -f "$_out_dir/defconfig" \
-          "$bootstrap_path/arch/$_arch/configs/$defconfig"
+          "$_bootstrap_path/arch/$_arch/configs/$defconfig"
     success "defconfig saved successfully"
 }
 

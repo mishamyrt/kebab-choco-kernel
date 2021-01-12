@@ -36,17 +36,18 @@ llvm_revision="r407598"
 _old_path="$PATH"
 
 # Paths
+_bootstrap_path="$PWD"
 _gcc32_dir="$toolchain_path/gcc32"
 _gcc64_dir="$toolchain_path/gcc64"
 _llvm_dir="$toolchain_path/llvm/clang-$llvm_revision"
 
+# Set shell environment variables
 export PATH="$_llvm_dir/bin:$_gcc64_dir/bin:$_gcc32_dir/bin:$PATH"
 export LD_LIBRARY_PATH="$_llvm_dir/lib:$_llvm_dir/lib64:$LD_LIBRARY_PATH"
 
-bootstrap_path="$PWD"
-
+# Declare all side effects variables
 _int_vars+=(
-	bootstrap_path
+	_bootstrap_path
 	fkm_name
 	trunk_name
 	threads
